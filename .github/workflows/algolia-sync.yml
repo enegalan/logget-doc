@@ -45,7 +45,7 @@ jobs:
             exit 0
           fi
           echo "🔄 Syncing Algolia indices..."
-          algolia login --application-id $ALGOLIA_APP_ID --api-key $API_KEY --yes
-          algolia crawler start .algolia/algolia-config.json || echo "⚠️  Crawler failed. Make sure the crawler is configured in Algolia dashboard."
+          # Use the Node.js script which uses the Algolia API directly
+          node scripts/sync-algolia.js || echo "⚠️  Crawler failed. Make sure the crawler is configured in Algolia dashboard."
           echo "✅ Algolia sync completed"
 

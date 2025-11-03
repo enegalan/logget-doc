@@ -95,6 +95,12 @@ async function getCrawlerId(appId, apiKey) {
         return crawlers[0].id;
       }
       
+      // In non-interactive mode (CI/CD), use the first crawler
+      if (!process.stdin.isTTY) {
+        console.log(`✅ Using first crawler: ${crawlers[0].name} (ID: ${crawlers[0].id})\n`);
+        return crawlers[0].id;
+      }
+      
       console.log('\nAvailable crawlers:');
       crawlers.forEach((c, i) => {
         console.log(`  ${i + 1}. ${c.name} (ID: ${c.id})`);
@@ -155,10 +161,12 @@ async function syncAlgolia() {
   console.log('🔄 Syncing Algolia indices...\n');
 
   // Get credentials from .env or environment variables
+  // Support both ALGOLIA_API_KEY and ALGOLIA_SEARCH_API_KEY
   let appId = process.env.ALGOLIA_APP_ID;
-  let apiKey = process.env.ALGOLIA_SEARCH_API_KEY;
+  let apiKey = process.env.ALGOLIA_API_KEY || process.env.ALGOLIA_SEARCH_API_KEY;
 
-  if (!apiKey) {
+  // Only prompt if running interactively (not in CI/CD)
+  if (!apiKey && process.stdin.isTTY) {
     console.log('📝 Enter your Algolia Search API Key:');
     console.log('   Find it at: https://www.algolia.com/dashboard > Settings > API Keys\n');
     apiKey = await question('API Key: ');
@@ -167,6 +175,7 @@ async function syncAlgolia() {
 
   if (!apiKey) {
     console.error('❌ Search API Key is required to continue.');
+    console.error('   Set ALGOLIA_API_KEY or ALGOLIA_SEARCH_API_KEY environment variable.');
     process.exit(1);
   }
 
