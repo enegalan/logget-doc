@@ -129,24 +129,20 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Logget. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Logget.`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
         additionalLanguages: ['bash', 'json'],
       },
-      // Only include Algolia config if both appId and apiKey are set
-      // Support both ALGOLIA_API_KEY and ALGOLIA_SEARCH_API_KEY for compatibility
       ...(process.env.ALGOLIA_APP_ID && (process.env.ALGOLIA_API_KEY || process.env.ALGOLIA_SEARCH_API_KEY)
         ? {
             algolia: {
               // Application ID provided by Algolia
-              // Can be configured in .env as ALGOLIA_APP_ID
               appId: process.env.ALGOLIA_APP_ID,
 
               // Public API key: it is safe to commit it
-              // Can be configured in .env as ALGOLIA_API_KEY or ALGOLIA_SEARCH_API_KEY
               apiKey: process.env.ALGOLIA_API_KEY || process.env.ALGOLIA_SEARCH_API_KEY,
 
               indexName: 'logget',
