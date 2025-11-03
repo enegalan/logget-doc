@@ -2,10 +2,10 @@
 
 # Script to sync Algolia indices from local
 # Usage: ./scripts/sync-algolia.sh
-# 
+#
 # Credentials can be configured in a .env file:
 # ALGOLIA_APP_ID=your_application_id_here
-# ALGOLIA_SEARCH_API_KEY=your_search_api_key_here
+# ALGOLIA_API_KEY=your_api_key_here (or ALGOLIA_SEARCH_API_KEY)
 
 set -e
 
@@ -17,38 +17,18 @@ if [ -f .env ]; then
     export $(cat .env | grep -v '^#' | xargs)
 fi
 
-# Check if Algolia CLI is installed
-if ! command -v algolia &> /dev/null; then
-    echo "❌ Algolia CLI is not installed."
-    echo "📦 Installing Algolia CLI..."
-    npm install -g @algolia/cli
-fi
-
-# Check if configuration file exists
-if [ ! -f ".algolia/algolia-config.json" ]; then
-    echo "❌ Configuration file not found: .algolia/algolia-config.json"
+if ! command -v node &> /dev/null; then
+    echo "❌ Node.js is not installed."
+    echo "   Please install Node.js to run this script."
     exit 1
 fi
 
-# Check environment variables or request credentials
-if [ -z "$ALGOLIA_APP_ID" ]; then
-    echo "📝 Enter your Algolia Application ID (or configure ALGOLIA_APP_ID):"
-    read -r ALGOLIA_APP_ID
+if [ ! -f "scripts/sync-algolia.js" ]; then
+    echo "❌ Sync script not found: scripts/sync-algolia.js"
+    exit 1
 fi
 
-if [ -z "$ALGOLIA_SEARCH_API_KEY" ]; then
-    echo "📝 Enter your Algolia Search API Key (or configure ALGOLIA_SEARCH_API_KEY):"
-    read -rs ALGOLIA_SEARCH_API_KEY
-    echo ""
-fi
-
-# Authenticate
-echo "🔐 Authenticating with Algolia..."
-algolia login --application-id "$ALGOLIA_APP_ID" --api-key "$ALGOLIA_SEARCH_API_KEY" --yes
-
-# Run the crawler
-echo "🚀 Starting Algolia crawler..."
-algolia crawler start .algolia/algolia-config.json
+node scripts/sync-algolia.js
 
 echo "✅ Sync completed!"
 
