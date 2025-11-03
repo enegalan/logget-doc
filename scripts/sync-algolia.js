@@ -226,7 +226,16 @@ async function syncAlgolia() {
   // Check for Crawler-specific credentials first (recommended)
   const crawlerUserId = process.env.CRAWLER_USER_ID;
   const crawlerApiKey = process.env.CRAWLER_API_KEY;
-  const useCrawlerCredentials = crawlerUserId && crawlerApiKey;
+  const useCrawlerCredentials = !!(crawlerUserId && crawlerApiKey);
+  
+  // Debug: Log what credentials are available
+  if (process.env.DEBUG) {
+    console.log('🔍 Debug: Credentials check');
+    console.log(`  CRAWLER_USER_ID: ${crawlerUserId ? 'set' : 'not set'}`);
+    console.log(`  CRAWLER_API_KEY: ${crawlerApiKey ? 'set' : 'not set'}`);
+    console.log(`  useCrawlerCredentials: ${useCrawlerCredentials}`);
+    console.log('');
+  }
   let appId = process.env.ALGOLIA_APP_ID;
   let apiKey = process.env.ALGOLIA_API_KEY || process.env.ALGOLIA_SEARCH_API_KEY;
   if (useCrawlerCredentials) {
