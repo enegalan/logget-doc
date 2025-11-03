@@ -199,6 +199,23 @@
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace;
 }
 
+.codeComment {
+  color: #6e6e73;
+}
+
+.codeCommand {
+  color: #0071e3;
+  font-weight: 500;
+}
+
+.codeOption {
+  color: #bf5af2;
+}
+
+.codeUrl {
+  color: #30d158;
+}
+
 .documentationLink {
   display: inline-block;
   font-size: 1.125rem;
@@ -393,4 +410,20 @@
 
 [data-theme='dark'] .codeBlock code {
   color: #f5f5f7;
+}
+
+[data-theme='dark'] .codeComment {
+  color: #86868b;
+}
+
+[data-theme='dark'] .codeCommand {
+  color: #5ac8fa;
+}
+
+[data-theme='dark'] .codeOption {
+  color: #bf5af2;
+}
+
+[data-theme='dark'] .codeUrl {
+  color: #30d158;
 }

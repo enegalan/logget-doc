@@ -92,20 +92,22 @@ function QuickStart() {
           <p className={styles.quickStartDescription}>Get started in seconds with these examples</p>
           <div className={styles.codeBlock}>
             <pre>
-              <code>{`# Show console logs
-logget --logs https://example.com
-
-# Show network requests
-logget --network https://example.com
-
-# Show both logs and network data
-logget --logs --network https://example.com
-
-# Output in JSON format
-logget --logs --network --json https://example.com
-
-# Stream logs in real-time
-logget -f --logs https://example.com`}</code>
+              <code>
+                <span className={styles.codeComment}># Show console logs</span>{'\n'}
+                <span className={styles.codeCommand}>logget</span> <span className={styles.codeOption}>--logs</span> <span className={styles.codeUrl}>https://example.com</span>{'\n'}
+                {'\n'}
+                <span className={styles.codeComment}># Show network requests</span>{'\n'}
+                <span className={styles.codeCommand}>logget</span> <span className={styles.codeOption}>--network</span> <span className={styles.codeUrl}>https://example.com</span>{'\n'}
+                {'\n'}
+                <span className={styles.codeComment}># Show both logs and network data</span>{'\n'}
+                <span className={styles.codeCommand}>logget</span> <span className={styles.codeOption}>--logs</span> <span className={styles.codeOption}>--network</span> <span className={styles.codeUrl}>https://example.com</span>{'\n'}
+                {'\n'}
+                <span className={styles.codeComment}># Output in JSON format</span>{'\n'}
+                <span className={styles.codeCommand}>logget</span> <span className={styles.codeOption}>--logs</span> <span className={styles.codeOption}>--network</span> <span className={styles.codeOption}>--json</span> <span className={styles.codeUrl}>https://example.com</span>{'\n'}
+                {'\n'}
+                <span className={styles.codeComment}># Stream logs in real-time</span>{'\n'}
+                <span className={styles.codeCommand}>logget</span> <span className={styles.codeOption}>-f</span> <span className={styles.codeOption}>--logs</span> <span className={styles.codeUrl}>https://example.com</span>
+              </code>
             </pre>
           </div>
           <Link
