@@ -33,15 +33,19 @@ jobs:
       - name: Sync Algolia
         env:
           ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
           ALGOLIA_SEARCH_API_KEY: ${{ secrets.ALGOLIA_SEARCH_API_KEY }}
         run: |
-          if [ -z "$ALGOLIA_SEARCH_API_KEY" ]; then
-            echo "⚠️  ALGOLIA_SEARCH_API_KEY secret not set. Skipping Algolia sync."
-            echo "To enable automatic sync, add ALGOLIA_SEARCH_API_KEY to GitHub Secrets"
+          # Use ALGOLIA_API_KEY or ALGOLIA_SEARCH_API_KEY (both are supported)
+          API_KEY="${ALGOLIA_API_KEY:-$ALGOLIA_SEARCH_API_KEY}"
+          
+          if [ -z "$API_KEY" ] || [ -z "$ALGOLIA_APP_ID" ]; then
+            echo "⚠️  Algolia credentials not set. Skipping Algolia sync."
+            echo "To enable automatic sync, add ALGOLIA_APP_ID and ALGOLIA_API_KEY to GitHub Secrets"
             exit 0
           fi
           echo "🔄 Syncing Algolia indices..."
-          algolia login --application-id $ALGOLIA_APP_ID --api-key $ALGOLIA_SEARCH_API_KEY --yes
+          algolia login --application-id $ALGOLIA_APP_ID --api-key $API_KEY --yes
           algolia crawler start .algolia/algolia-config.json || echo "⚠️  Crawler failed. Make sure the crawler is configured in Algolia dashboard."
           echo "✅ Algolia sync completed"
 
