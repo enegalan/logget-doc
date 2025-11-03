@@ -1,46 +1,38 @@
 # Introduction
 
-**Logget** is a command-line tool that extracts browser logs and network data from web pages using an embedded Chromium browser.
+**Logget** is a command-line tool that extracts browser console logs and network data from web pages using an embedded Chromium browser.
 
-## Features
+## Overview
 
-- **Console Log Collection**: Capture all console.log, console.error, console.warn, and console.info messages
-- **Network Monitoring**: Track all HTTP requests (fetch, XMLHttpRequest) with headers, status codes, and timing
-- **Cross-Platform**: Works on Windows, Linux, and macOS
-- **No Chrome Required**: Uses embedded Chromium via `chromedp`
-- **JSON Output**: Structured data output for easy parsing
-- **File Output**: Write results to files instead of stdout
-- **Append Mode**: Add output to existing files instead of overwriting
-- **Custom Headers**: Add custom HTTP headers (supports files)
-- **Cookie Support**: Set cookies for authenticated requests (supports files)
-- **Configurable Timeout**: Set custom timeout values
-- **Fingerprint Rotation**: Rotate navigator fingerprints (userAgent, platform, language, screen properties, WebGL, Canvas) to prevent tracking
-- **Performance Metrics**: Detailed timing metrics (Duration, TTFB, Connect Time, DNS, SSL, Send, Wait, Receive times, Content Download Time, Queued Time, Total)
-- **HAR Export**: Export network data in HAR (HTTP Archive) format
-- **Real-time Streaming**: Stream logs and network requests in real-time with follow mode
-- **Request Filtering**: Filter by status code, domain, MIME type, size, and resource type
-- **CSV Output**: Export data in CSV format for spreadsheet analysis
+Logget enables you to capture and analyze web application behavior without manual browser inspection. It automates the process of monitoring console output and network activity, making it ideal for debugging, testing, and monitoring web applications.
 
-## Use Cases
+## Key Features
 
-- **Web Development**: Debug JavaScript applications and API calls
-- **Testing**: Verify network requests and console output
-- **Monitoring**: Track application behavior and performance
-- **Security Analysis**: Inspect network traffic and JavaScript execution
-- **Automation**: Save results to files for batch processing and analysis
-- **Logging**: Create organized log files with timestamps and structured data
-- **AI Utility**: Allow your AI agents use this command for efficient debugging
+### Data Collection
+- **Console Logs**: Capture all browser console messages
+- **Network Monitoring**: Track HTTP requests with detailed headers, status codes, and timing metrics
+- **Performance Metrics**: Comprehensive timing data including TTFB, DNS, SSL, and connection times
+
+### Output Formats
+- **JSON**: Structured data for programmatic processing
+- **CSV**: Spreadsheet-friendly format for analysis
+- **HAR**: HTTP Archive format compatible with browser DevTools
+
+### Advanced Capabilities
+- **Real-time Streaming**: Monitor logs and requests as they occur
+- **Flexible Filtering**: Filter by status code, domain, MIME type, size, and resource type
+- **Custom Headers & Cookies**: Support for authentication and custom request headers
+- **File Operations**: Write output to files with append mode support
+- **Fingerprint Rotation**: Prevent tracking by rotating browser fingerprints
+- **SSL Support**: Configure SSL certificate verification for development environments
+
+### Cross-Platform
+Works seamlessly on Windows, Linux, and macOS with no browser installation required.
 
 ## Quick Example
 
 ```bash
-# Show console logs
-logget --logs https://example.com
-
-# Show network requests
-logget --network https://example.com
-
-# Show both logs and network data
+# Capture console logs and network requests
 logget --logs --network https://example.com
 
 # Output in JSON format
@@ -50,23 +42,16 @@ logget --logs --network --json https://example.com
 logget -f --logs https://example.com
 ```
 
-## Comparison with curl
+## Use Cases
 
-| Feature | curl | logget |
-|---------|------|--------|
-| HTTP requests | ✅ | ✅ |
-| Custom headers | ✅ | ✅ |
-| Cookie support | ✅ | ✅ |
-| Response body | ✅ | ❌ |
-| Console logs | ❌ | ✅ |
-| Network monitoring | ❌ | ✅ |
-| JavaScript execution | ❌ | ✅ |
-| Browser automation | ❌ | ✅ |
-| Real-time streaming | ❌ | ✅ |
+- **Web Development**: Debug JavaScript applications and API interactions
+- **Testing & QA**: Verify network requests and console output in automated tests
+- **Monitoring**: Track application behavior and performance metrics
+- **Security Analysis**: Inspect network traffic and JavaScript execution patterns
+- **Logging**: Create structured log files with timestamps for analysis
 
 ## Next Steps
 
 - [Install Logget](getting-started/installation) - Get started with installation
 - [Quick Start Guide](getting-started/quick-start) - Learn the basics
-- [Command Reference](commands/overview) - Explore all available commands and options
-
+- [Command Reference](commands/overview) - Explore all available options

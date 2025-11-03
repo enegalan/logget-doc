@@ -1,6 +1,6 @@
 # Installation
 
-Logget is a cross-platform command-line tool that works on Windows, Linux, and macOS. This guide covers different installation methods.
+Logget is a cross-platform command-line tool available for Windows, Linux, and macOS. Choose the installation method that best fits your needs.
 
 ## Prerequisites
 
@@ -17,16 +17,14 @@ Visit the [GitHub Releases page](https://github.com/enegalan/logget/releases) an
 - **macOS**: `logget-darwin-amd64` or `logget-darwin-arm64`
 - **Windows**: `logget-windows-amd64.exe` or `logget-windows-arm64.exe`
 
-### Installation Steps
-
-#### Linux/macOS
+### Linux/macOS Installation
 
 1. Download the binary for your platform
 2. Make it executable:
    ```bash
    chmod +x logget-linux-amd64
    ```
-3. Move it to a directory in your PATH (optional but recommended):
+3. Move to a directory in your PATH (recommended):
    ```bash
    sudo mv logget-linux-amd64 /usr/local/bin/logget
    ```
@@ -35,11 +33,11 @@ Visit the [GitHub Releases page](https://github.com/enegalan/logget/releases) an
    logget --version
    ```
 
-#### Windows
+### Windows Installation
 
 1. Download the Windows executable (`logget-windows-amd64.exe`)
-2. Rename it to `logget.exe` (optional)
-3. Add it to your PATH or place it in a directory you can access from the command line
+2. Rename to `logget.exe` (optional)
+3. Add to PATH or place in an accessible directory
 4. Verify installation:
    ```cmd
    logget --version
@@ -49,7 +47,7 @@ Visit the [GitHub Releases page](https://github.com/enegalan/logget/releases) an
 
 ### Prerequisites
 
-- [Go](https://golang.org/dl/) 1.21 or later installed
+- [Go](https://golang.org/dl/) 1.21 or later
 - Git (to clone the repository)
 
 ### Build Steps
@@ -65,15 +63,15 @@ Visit the [GitHub Releases page](https://github.com/enegalan/logget/releases) an
    go mod tidy
    ```
 
-3. Build for your current platform:
+3. Build for your platform:
    ```bash
    go build -o logget .
    ```
 
-4. Or use the Makefile:
-   ```bash
-   make build
-   ```
+Or use the Makefile:
+```bash
+make build
+```
 
 ### Cross-Platform Build
 
@@ -83,12 +81,6 @@ Build for all supported platforms:
 make build-all
 ```
 
-Or use the build script directly:
-
-```bash
-./scripts/build.sh
-```
-
 This creates binaries for:
 - Linux (amd64, arm64)
 - macOS (amd64, arm64)
@@ -96,7 +88,7 @@ This creates binaries for:
 
 ## Verify Installation
 
-After installation, verify that logget is working correctly:
+After installation, verify that Logget is working:
 
 ```bash
 logget --version
@@ -106,19 +98,19 @@ You should see the version number printed.
 
 ## Troubleshooting
 
-### Command not found
+### Command Not Found
 
 If you get a "command not found" error:
 
-1. **Check if the binary is in your PATH**: 
+1. **Check if the binary is in your PATH**:
    ```bash
    which logget  # Linux/macOS
    where logget  # Windows
    ```
 
-2. **Add to PATH**: Make sure the directory containing `logget` is in your system's PATH environment variable.
+2. **Add to PATH**: Ensure the directory containing `logget` is in your system's PATH environment variable.
 
-3. **Use full path**: You can always run logget using its full path:
+3. **Use full path**: You can always run Logget using its full path:
    ```bash
    /path/to/logget --version
    ```
@@ -133,9 +125,8 @@ chmod +x logget
 
 ### Windows Security Warning
 
-On Windows, you may see a security warning when running the executable. This is normal for unsigned binaries. Click "More info" and then "Run anyway" if you trust the source.
+On Windows, you may see a security warning when running unsigned binaries. Click "More info" and then "Run anyway" if you trust the source.
 
 ## Next Steps
 
-Once installed, check out the [Quick Start Guide](quick-start) to learn how to use logget.
-
+Once installed, proceed to the [Quick Start Guide](quick-start) to learn how to use Logget.

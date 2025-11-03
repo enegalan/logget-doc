@@ -12,60 +12,60 @@ logget [flags] <url>
 
 ### Data Collection
 
-- `--logs`, `-L`: Capture and display console logs
-- `--network`, `-N`: Capture and display network requests
+- `--logs`, `-L`: Capture browser console logs
+- `--network`, `-N`: Capture network HTTP requests
 
 ### Output Format
 
-- `--json`, `-J`: Output results in JSON format
-- `--csv`: Output results in CSV format
-- `--har`: Output results in HAR (HTTP Archive) format
+- `--json`, `-J`: Output in JSON format
+- `--csv`: Output in CSV format
+- `--har`: Output in HAR (HTTP Archive) format
 
 ### Output Destination
 
 - `--output`, `-o` `<filename>`: Write to file instead of stdout
 - `--append`, `-a`: Append to file instead of overwriting
 - `--follow`, `-f`: Stream logs and network requests in real-time
-- `--quiet`, `-q`: Suppress progress messages, only show data (errors and warnings still displayed)
+- `--quiet`, `-q`: Suppress progress messages (errors and warnings still displayed)
 
 ### HTTP Options
 
-- `--header`, `-H` `<header|file>`: Add custom HTTP headers (format: 'Key: Value') or filename containing headers
-- `--cookie`, `-C` `<data|filename>`: Set cookies (format: 'name=value' or 'name=value; domain=example.com') or filename containing cookies
+- `--header`, `-H` `<header|file>`: Add custom HTTP headers (format: 'Key: Value') or filename
+- `--cookie`, `-C` `<data|filename>`: Set cookies (format: 'name=value' or 'name=value; domain=example.com') or filename
 - `--user-agent`, `-A` `<name>`: Set User-Agent header (default: "logget/1.0")
-- `--insecure`, `-k`: Skip SSL certificate verification (useful for self-signed certificates)
+- `--insecure`, `-k`: Skip SSL certificate verification
 
 ### Timing
 
 - `--timeout`, `-T`: Set timeout in seconds (default: 60)
 - `--wait`, `-W`: Wait time in milliseconds after page load (default: 3000)
 
-### Filtering Options
+### Filtering
 
-- `--filter` `<regex>`: Show only logs/requests matching this regex pattern
-- `--exclude` `<regex>`: Exclude logs/requests matching this regex pattern
-- `--status` `<regex>`: Only include requests whose HTTP status code matches this regex
-- `--domain` `<regex>`: Only include requests whose domain matches this regex
-- `--mime` `<regex>`: Only include requests whose MIME type matches this regex
-- `--min-size` `<bytes>`: Only include requests whose size is at least this many bytes
-- `--max-size` `<bytes>`: Only include requests whose size is at most this many bytes
+- `--filter` `<regex>`: Show only logs/requests matching regex pattern
+- `--exclude` `<regex>`: Exclude logs/requests matching regex pattern
+- `--status` `<regex>`: Filter by HTTP status code
+- `--domain` `<regex>`: Filter by domain
+- `--mime` `<regex>`: Filter by MIME type
+- `--min-size` `<bytes>`: Minimum request size
+- `--max-size` `<bytes>`: Maximum request size
 
-### Request Type Filtering
+### Resource Type Filtering
 
-- `--xhr`: Only include fetch/XHR requests
-- `--document`: Only include Document requests
-- `--css`: Only include CSS requests
-- `--script`: Only include Script requests
-- `--font`: Only include Font requests
-- `--img`: Only include Image requests
-- `--media`: Only include Media requests
-- `--manifest`: Only include Manifest requests
-- `--socket`: Only include WebSocket requests
+- `--xhr`: Only fetch/XHR requests
+- `--document`: Only document requests
+- `--css`: Only CSS requests
+- `--script`: Only script requests
+- `--font`: Only font requests
+- `--img`: Only image requests
+- `--media`: Only media requests
+- `--manifest`: Only manifest requests
+- `--socket`: Only WebSocket requests
 
 ### Advanced Options
 
-- `--refresh`: Refresh interval in milliseconds for real-time streaming (default: 100)
-- `--no-rotate-fingerprints`: Disable fingerprint rotation (default: enabled)
+- `--refresh`: Refresh interval in milliseconds for streaming (default: 100)
+- `--no-rotate-fingerprints`: Disable fingerprint rotation
 - `--fingerprint-interval`: Interval in milliseconds for fingerprint rotation (default: 5000)
 - `--no-color`: Disable colored output
 - `--verbose`, `-V`: Show detailed HTTP protocol information
@@ -124,7 +124,7 @@ logget --logs --header headers.txt https://api.example.com
 logget --logs --cookie cookies.txt https://example.com
 ```
 
-### Request Type Filtering
+### Resource Type Filtering
 
 ```bash
 # Only XHR/fetch requests
@@ -146,13 +146,13 @@ logget --network --socket https://example.com
 # Only JavaScript MIME types
 logget --network --mime "^application/(javascript|json)$" https://example.com
 
-# Only 2xx responses (regex)
+# Only 2xx responses
 logget --network --status "^2..$" https://example.com
 
 # Only 200 or 204
 logget --network --status "^(200|204)$" https://example.com
 
-# Only requests to a specific domain
+# Only requests to specific domain
 logget --network --domain "^api\\.example\\.com$" https://example.com
 
 # Requests between 1KB and 100KB
@@ -192,4 +192,4 @@ logget --no-rotate-fingerprints --network https://example.com
 
 - See [Detailed Options](options) for complete option reference
 - Learn about [Output Formats](../output-formats/json)
-- Check out [Examples](../use-cases/examples)
+- Check out [Use Cases](../use-cases/examples)

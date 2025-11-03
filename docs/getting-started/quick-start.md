@@ -1,230 +1,218 @@
 # Quick Start
 
-This guide will help you get started with logget in just a few minutes.
+Get up and running with Logget in minutes. This guide covers the most common use cases and options.
 
-## Basic Examples
+## Basic Usage
 
-### Show Console Logs
+### Capture Console Logs
 
 ```bash
 logget --logs https://example.com
 ```
 
-### Show Network Requests
+### Capture Network Requests
 
 ```bash
 logget --network https://example.com
 ```
 
-### Show Both Logs and Network Data
+### Capture Both
 
 ```bash
 logget --logs --network https://example.com
 ```
 
-### Output in JSON Format
+## Output Formats
+
+### JSON Output
 
 ```bash
 logget --logs --network --json https://example.com
 ```
 
-### Output in CSV Format
+### CSV Output
 
 ```bash
 logget --logs --network --csv https://example.com
 ```
 
-### Output in HAR Format
+### HAR Output
 
 ```bash
 logget --network --har https://example.com
 ```
 
-## Write Output to a File
+## File Operations
+
+### Save to File
 
 ```bash
 logget --logs --output results.txt https://example.com
 ```
 
-### Write JSON Output to a File
-
-```bash
-logget --logs --json --output results.json https://example.com
-```
-
-### Write HAR Output to a File
-
-```bash
-logget --network --har --output network.har https://example.com
-```
-
-## Append Output to an Existing File
+### Append to File
 
 ```bash
 logget --logs --output results.txt --append https://example.com
 ```
 
-### Append JSON Output to a File
+### JSON Output to File
 
 ```bash
-logget --logs --json --output results.json --append https://example.com
+logget --logs --json --output results.json https://example.com
 ```
 
-## Set Custom Timeout
+## Authentication
+
+### Custom Headers
 
 ```bash
-logget --logs --timeout 60 https://example.com
+logget --logs --header "Authorization: Bearer token" https://example.com
 ```
 
-## Set Custom Wait Time After Page Load
-
-Set wait time in milliseconds after page load:
-
-```bash
-logget --logs --wait 5000 https://example.com
-```
-
-## Add Custom Headers
+### Multiple Headers
 
 ```bash
 logget --logs --header "Authorization: Bearer token" --header "X-Custom: value" https://example.com
 ```
 
-### Add Headers from a File
+### Headers from File
 
 Create `headers.txt`:
 ```
 Authorization: Bearer token
 X-Custom-Header: value
-# Comments (lines starting with # are ignored)
+# Comments are ignored
 ```
 
-Then use it:
+Use it:
 ```bash
 logget --logs --header headers.txt https://example.com
 ```
 
-## Set Cookies for Authenticated Requests
+### Cookies
 
 ```bash
-logget --logs --cookie "session_id=abc123" --cookie "user_token=xyz789" https://example.com
+logget --logs --cookie "session_id=abc123" https://example.com
 ```
 
-### Set Cookies from a File
+### Cookies from File
 
 Create `cookies.txt`:
 ```
 session_id=abc123
 user_token=xyz789
 pref=dark_mode; domain=example.com
-# Comments (lines starting with # are ignored)
 ```
 
-Then use it:
+Use it:
 ```bash
 logget --logs --cookie cookies.txt https://example.com
 ```
 
-### Set Cookies with Additional Attributes
+## Real-time Streaming
 
-```bash
-logget --logs --cookie "session_id=abc123; domain=.example.com; secure" --cookie "user_pref=dark_mode; path=/settings" https://example.com
-```
-
-### Mix Direct Values and Files
-
-```bash
-logget --logs --header "Authorization: Bearer token" --header headers.txt --cookie "session_id=abc123" --cookie cookies.txt https://example.com
-```
-
-## Suppress Progress Messages
-
-```bash
-logget --quiet --logs --network https://example.com
-logget -q --logs --json https://example.com
-```
-
-## Real-time Streaming Examples
-
-### Stream Browser Logs from a URL in Real-time
+### Stream Console Logs
 
 ```bash
 logget -f --logs https://example.com
 ```
 
-### Stream Network Requests from a URL
+### Stream Network Requests
 
 ```bash
 logget -f --network https://example.com
 ```
 
-### Stream Both Logs and Network Data
+### Stream Both
 
 ```bash
 logget -f --logs --network https://example.com
 ```
 
-### Stream with Custom Refresh Interval
+### Custom Refresh Interval
 
 ```bash
 logget -f --logs --refresh 500 https://example.com
 ```
 
-### Stream to a File
-
-```bash
-logget -f --logs --output stream.log https://example.com
-```
-
-### Stream with JSON Output
-
-```bash
-logget -f --logs --json https://example.com
-```
-
-### Stream with Custom Headers and Cookies
-
-```bash
-logget -f --logs --header "Authorization: Bearer token" --cookie "session=abc123" https://example.com
-```
-
-### Stream with Filtering for ERROR Messages Only
-
-```bash
-logget -f --logs --filter "ERROR" https://example.com
-```
-
-### Stream with Filtering for Multiple Patterns
+### Stream with Filtering
 
 ```bash
 logget -f --logs --filter "ERROR|WARN" https://example.com
 ```
 
-### Stream with Exclusion Patterns
+## Filtering
+
+### Filter by Status Code
 
 ```bash
-logget -f --logs --exclude "DEBUG" https://example.com
+logget --network --status "^2..$" https://example.com
 ```
 
-### Stream with Filtering and JSON Output
+### Filter by Domain
 
 ```bash
-logget -f --logs --filter "ERROR|WARN" --json --output errors.json https://example.com
+logget --network --domain "^api\\.example\\.com$" https://example.com
 ```
 
-## Skip SSL Verification
-
-Skip SSL verification for local development servers:
+### Filter by MIME Type
 
 ```bash
-logget -k --logs https://0.0.0.0:3030
-logget -k --network https://localhost:8080
-logget -k -f --logs --filter "ERROR" https://127.0.0.1:3000
+logget --network --mime "^application/(json|javascript)$" https://example.com
+```
+
+### Filter by Size
+
+```bash
+logget --network --min-size 1024 --max-size 102400 https://example.com
+```
+
+### Filter by Resource Type
+
+```bash
+logget --network --xhr https://example.com
+logget --network --img https://example.com
+logget --network --script --css https://example.com
+```
+
+## Timing Configuration
+
+### Custom Timeout
+
+```bash
+logget --logs --timeout 60 https://example.com
+```
+
+### Custom Wait Time
+
+Wait time in milliseconds after page load:
+
+```bash
+logget --logs --wait 5000 https://example.com
+```
+
+## Development Options
+
+### Skip SSL Verification
+
+For local development servers with self-signed certificates:
+
+```bash
+logget -k --logs https://localhost:8080
+```
+
+### Quiet Mode
+
+Suppress progress messages:
+
+```bash
+logget --quiet --logs --network https://example.com
 ```
 
 ## Complete Example
 
-Here's a complete example that combines multiple features:
+A comprehensive example combining multiple features:
 
 ```bash
 logget \
@@ -239,17 +227,16 @@ logget \
   https://example.com
 ```
 
-This command will:
-- Capture console logs and network requests
-- Output in JSON format
-- Save to `results.json`
-- Send a custom Authorization header
-- Include a session cookie
-- Wait up to 60 seconds for the page to load
-- Wait 5 seconds after page load
+This command:
+- Captures console logs and network requests
+- Outputs in JSON format
+- Saves to `results.json`
+- Includes authentication headers and cookies
+- Waits up to 60 seconds for page load
+- Waits 5 seconds after page load
 
 ## Next Steps
 
 - Explore the [Command Reference](../commands/overview) for all available options
 - Learn about [Output Formats](../output-formats/json) in detail
-- Check out [Examples](../use-cases/examples) for more use cases
+- Check out [Use Cases](../use-cases/examples) for more examples
