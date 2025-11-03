@@ -32,16 +32,31 @@ jobs:
       
       - name: Sync Algolia
         env:
+          # Use Crawler-specific credentials (RECOMMENDED)
+          CRAWLER_USER_ID: ${{ secrets.CRAWLER_USER_ID }}
+          CRAWLER_API_KEY: ${{ secrets.CRAWLER_API_KEY }}
+          # Fallback to standard Algolia credentials (optional)
           ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
           ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
-          ALGOLIA_SEARCH_API_KEY: ${{ secrets.ALGOLIA_SEARCH_API_KEY }}
         run: |
-          # Use ALGOLIA_API_KEY or ALGOLIA_SEARCH_API_KEY (both are supported)
-          API_KEY="${ALGOLIA_API_KEY:-$ALGOLIA_SEARCH_API_KEY}"
-          
-          if [ -z "$API_KEY" ] || [ -z "$ALGOLIA_APP_ID" ]; then
+          # Check if Crawler credentials are set (preferred method)
+          if [ -n "$CRAWLER_USER_ID" ] && [ -n "$CRAWLER_API_KEY" ]; then
+            echo "✅ Using Crawler-specific credentials"
+          # Fallback to standard Algolia credentials
+          elif [ -n "$ALGOLIA_API_KEY" ] && [ -n "$ALGOLIA_APP_ID" ]; then
+            echo "✅ Using standard Algolia credentials"
+          else
             echo "⚠️  Algolia credentials not set. Skipping Algolia sync."
-            echo "To enable automatic sync, add ALGOLIA_APP_ID and ALGOLIA_API_KEY to GitHub Secrets"
+            echo ""
+            echo "To enable automatic sync, add one of the following to GitHub Secrets:"
+            echo ""
+            echo "Option 1 (RECOMMENDED): Crawler-specific credentials"
+            echo "  - CRAWLER_USER_ID: Get from https://crawler.algolia.com/admin/user/settings/"
+            echo "  - CRAWLER_API_KEY: Get from https://crawler.algolia.com/admin/user/settings/"
+            echo ""
+            echo "Option 2: Standard Algolia credentials"
+            echo "  - ALGOLIA_APP_ID: Your Application ID"
+            echo "  - ALGOLIA_API_KEY: Your Admin API Key (must have crawler permissions)"
             exit 0
           fi
           echo "🔄 Syncing Algolia indices..."
