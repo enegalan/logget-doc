@@ -1,6 +1,6 @@
 # Introduction
 
-**Logget** is a command-line tool similar to `curl` that extracts browser logs and network data from web pages using an embedded Chromium browser.
+**Logget** is a command-line tool that extracts browser logs and network data from web pages using an embedded Chromium browser.
 
 ## Features
 
@@ -11,7 +11,7 @@
 - **JSON Output**: Structured data output for easy parsing
 - **File Output**: Write results to files instead of stdout
 - **Append Mode**: Add output to existing files instead of overwriting
-- **Custom Headers**: Add custom HTTP headers like curl (supports files)
+- **Custom Headers**: Add custom HTTP headers (supports files)
 - **Cookie Support**: Set cookies for authenticated requests (supports files)
 - **Configurable Timeout**: Set custom timeout values
 - **Fingerprint Rotation**: Rotate navigator fingerprints (userAgent, platform, language, screen properties, WebGL, Canvas) to prevent tracking

@@ -16,7 +16,7 @@ function HomepageHeader() {
             Extract browser logs and network data from web pages
           </p>
           <p className={styles.heroDescription}>
-            A command-line tool similar to curl that uses an embedded Chromium browser to capture console logs and network requests. Perfect for debugging, monitoring, and analyzing web applications.
+            A command-line tool that uses an embedded Chromium browser to capture console logs and network requests. Perfect for debugging, monitoring, and analyzing web applications.
           </p>
           <div className={styles.heroButtons}>
             <Link
