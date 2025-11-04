@@ -42,6 +42,12 @@ logget --logs --network --csv https://example.com
 logget --network --har https://example.com
 ```
 
+### YAML Output
+
+```bash
+logget --logs --network --yaml https://example.com
+```
+
 ## File Operations
 
 ### Save to File
@@ -60,6 +66,12 @@ logget --logs --output results.txt --append https://example.com
 
 ```bash
 logget --logs --json --output results.json https://example.com
+```
+
+### YAML Output to File
+
+```bash
+logget --logs --yaml --output results.yaml https://example.com
 ```
 
 ## Authentication

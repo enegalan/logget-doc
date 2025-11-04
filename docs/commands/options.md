@@ -47,12 +47,6 @@ Output data in JSON format.
 logget --json --logs --network https://example.com
 ```
 
-**Features:**
-- Structured data format
-- Easy to parse programmatically
-- Supports nested objects
-- Preserves all data types
-
 ### `--csv`
 
 Output data in CSV (Comma-Separated Values) format.
@@ -61,12 +55,6 @@ Output data in CSV (Comma-Separated Values) format.
 ```bash
 logget --csv --logs --network https://example.com
 ```
-
-**Features:**
-- Tabular format
-- Easy to import into spreadsheets
-- Headers included
-- Values properly escaped
 
 ### `--har`
 
@@ -77,13 +65,16 @@ Output network data in HAR (HTTP Archive) format.
 logget --har --network https://example.com
 ```
 
-**Features:**
-- Compatible with browser DevTools
-- Can be viewed in HAR viewers
-- Standard format for HTTP analysis
-- Includes detailed timing information
-
 **Note:** HAR format only includes network data. Use `--network` with `--har`.
+
+### `--yaml`
+
+Output data in YAML (YAML Ain't Markup Language) format.
+
+**Usage:**
+```bash
+logget --yaml --logs --network https://example.com
+```
 
 ## Output Destination Options
 
@@ -106,6 +97,9 @@ logget --logs --csv --output logs.csv https://example.com
 
 # HAR file
 logget --network --har --output network.har https://example.com
+
+# YAML file
+logget --logs --yaml --output logs.yaml https://example.com
 ```
 
 ### `--append`, `-a`
@@ -569,6 +563,11 @@ logget --csv --logs --network --output results.csv https://example.com
 **HAR export:**
 ```bash
 logget --har --network --output network.har https://example.com
+```
+
+**YAML export:**
+```bash
+logget --yaml --logs --network --output results.yaml https://example.com
 ```
 
 ## Next Steps

@@ -20,6 +20,7 @@ logget [flags] <url>
 - `--json`, `-J`: Output in JSON format
 - `--csv`: Output in CSV format
 - `--har`: Output in HAR (HTTP Archive) format
+- `--yaml`: Output in YAML format
 
 ### Output Destination
 
@@ -106,6 +107,9 @@ logget --logs --csv --output results.csv https://example.com
 
 # HAR output
 logget --network --har --output network.har https://example.com
+
+# YAML output
+logget --logs --yaml --output logs.yaml https://example.com
 ```
 
 ### Authentication
