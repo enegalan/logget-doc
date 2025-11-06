@@ -24,7 +24,7 @@ logget [flags] <url>
 
 ### Output Destination
 
-- `--output`, `-o` `<filename>`: Write to file instead of stdout
+- `--output`, `-o` `<file>`: Write to file instead of stdout
 - `--append`, `-a`: Append to file instead of overwriting
 - `--follow`, `-f`: Stream logs and network requests in real-time
 - `--quiet`, `-q`: Suppress progress messages (errors and warnings still displayed)
@@ -32,13 +32,13 @@ logget [flags] <url>
 ### HTTP Options
 
 - `--header`, `-H` `<header|file>`: Add custom HTTP headers (format: 'Key: Value') or filename
-- `--cookie`, `-C` `<data|filename>`: Set cookies (format: 'name=value' or 'name=value; domain=example.com') or filename
+- `--cookie`, `-C` `<data|file>`: Set cookies (format: 'name=value' or 'name=value; domain=example.com') or filename
 - `--user-agent`, `-A` `<name>`: Set User-Agent header (default: "logget/1.0")
 - `--insecure`, `-k`: Skip SSL certificate verification
 
 ### Timing
 
-- `--timeout`, `-T`: Set timeout in seconds (default: 60)
+- `--timeout`, `-T`: Set timeout in milliseconds (default: 60000)
 - `--wait`, `-W`: Wait time in milliseconds after page load (default: 3000)
 
 ### Filtering

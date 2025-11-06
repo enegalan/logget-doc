@@ -30,7 +30,7 @@ logget --network https://example.com
 ```
 
 **Captures:**
-- Request method, URL, headers
+- Request method with URL
 - Response status code, headers, MIME type
 - Resource type (Document, XHR, Image, Script, Stylesheet, Font, Media, Manifest, WebSocket, Other)
 - Response size
@@ -40,7 +40,7 @@ logget --network https://example.com
 
 ### `--json`, `-J`
 
-Output data in JSON format.
+Output data in [JSON](https://enegalan.github.io/logget-doc/docs/output-formats/json) format.
 
 **Usage:**
 ```bash
@@ -49,7 +49,7 @@ logget --json --logs --network https://example.com
 
 ### `--csv`
 
-Output data in CSV (Comma-Separated Values) format.
+Output data in [CSV](https://enegalan.github.io/logget-doc/docs/output-formats/csv) (Comma-Separated Values) format.
 
 **Usage:**
 ```bash
@@ -58,7 +58,7 @@ logget --csv --logs --network https://example.com
 
 ### `--har`
 
-Output network data in HAR (HTTP Archive) format.
+Output network data in [HAR](https://enegalan.github.io/logget-doc/docs/output-formats/har) (HTTP Archive) format.
 
 **Usage:**
 ```bash
@@ -69,7 +69,7 @@ logget --har --network https://example.com
 
 ### `--yaml`
 
-Output data in YAML (YAML Ain't Markup Language) format.
+Output data in [YAML](https://enegalan.github.io/logget-doc/docs/output-formats/yaml) (YAML Ain't Markup Language) format.
 
 **Usage:**
 ```bash
@@ -111,11 +111,6 @@ Append output to an existing file instead of overwriting it.
 logget --logs --append --output results.txt https://example.com
 ```
 
-**Use Cases:**
-- Accumulating logs over time
-- Batch processing multiple URLs
-- Building log archives
-
 ### `--follow`, `-f`
 
 Follow mode - stream output in real-time as logs and requests occur.
@@ -124,12 +119,6 @@ Follow mode - stream output in real-time as logs and requests occur.
 ```bash
 logget -f --logs https://example.com
 ```
-
-**Features:**
-- Continuous monitoring
-- Streams data as it happens
-- Useful for single-page applications
-- Great for debugging dynamic content
 
 **Note:** In follow mode, output is streamed line by line. For CSV format, headers are written once at the start.
 
@@ -178,11 +167,6 @@ Content-Type: application/json
 # Comments (lines starting with # are ignored)
 ```
 
-The tool automatically detects whether the argument is a file path or a direct value:
-- If it contains `:`, it's treated as direct data
-- Otherwise, it attempts to read from the file
-- You can mix direct values and files in the same command
-
 ### `--cookie <cookie>`, `-C <cookie>`
 
 Set a cookie. Can be used multiple times to set multiple cookies. Also supports reading from files.
@@ -220,11 +204,6 @@ pref=dark_mode; domain=example.com
 # Comments (lines starting with # are ignored)
 ```
 
-The tool automatically detects whether the argument is a file path or a direct value:
-- If it contains `=`, it's treated as direct data
-- Otherwise, it attempts to read from the file
-- You can mix direct values and files in the same command
-
 ### `--user-agent <name>`, `-A <name>`
 
 Set User-Agent header (default: "logget/1.0").
@@ -245,30 +224,18 @@ logget -k --logs https://localhost:8080
 
 ## Timing Options
 
-### `--timeout <seconds>`, `-T <seconds>`
+### `--timeout <int>`, `-T <int>`
 
-Set timeout for page load in seconds. Default is 60 seconds.
+Set timeout for page load in milliseconds. Default is 60 seconds.
 
 **Usage:**
 ```bash
-logget --timeout 60 https://example.com
-```
-
-**Examples:**
-```bash
-# 60 seconds (default)
-logget https://example.com
-
-# 30 seconds
-logget --timeout 30 https://example.com
-
-# 5 seconds (for quick checks)
-logget --timeout 5 https://example.com
+logget --timeout 30000 https://example.com
 ```
 
 **Note:** The timeout applies to the initial page load. In follow mode, monitoring continues indefinitely.
 
-### `--wait <milliseconds>`, `-W <milliseconds>`
+### `--wait <int>`, `-W <int>`
 
 Wait time in milliseconds after page load. Default is 3000ms.
 
@@ -290,8 +257,8 @@ logget -f --logs --filter "ERROR" https://example.com
 
 **Examples:**
 ```bash
-# Filter for ERROR messages only
-logget -f --logs --filter "ERROR" https://example.com
+# Filter for WARN messages only
+logget -f --logs --filter "WARN" https://example.com
 
 # Filter for multiple patterns
 logget -f --logs --filter "ERROR|WARN" https://example.com
@@ -317,8 +284,8 @@ logget --network --status "^2..$" https://example.com
 
 **Examples:**
 ```bash
-# Only 2xx responses
-logget --network --status "^2..$" https://example.com
+# Only 4xx responses
+logget --network --status "^4..$" https://example.com
 
 # Only 200 or 204
 logget --network --status "^(200|204)$" https://example.com
@@ -331,15 +298,6 @@ Only include requests whose domain matches this regex.
 **Usage:**
 ```bash
 logget --network --domain "^api\\.example\\.com$" https://example.com
-```
-
-**Examples:**
-```bash
-# Only requests to a specific domain
-logget --network --domain "^api\\.example\\.com$" https://example.com
-
-# Requests to subdomains of example.com
-logget --network --domain "(.*\\.)?example\\.com$" https://example.com
 ```
 
 ### `--mime <regex>`
@@ -512,11 +470,6 @@ Show version information and exit.
 **Usage:**
 ```bash
 logget --version
-```
-
-**Output:**
-```
-logget version 2.0
 ```
 
 ### `--help`, `-h`

@@ -38,6 +38,7 @@ const sidebars = {
         'output-formats/json',
         'output-formats/csv',
         'output-formats/har',
+        'output-formats/yaml',
       ],
     },
     {

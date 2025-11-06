@@ -2,11 +2,6 @@
 
 Logget is a cross-platform command-line tool available for Windows, Linux, and macOS. Choose the installation method that best fits your needs.
 
-## Prerequisites
-
-- No browser installation required (uses embedded Chromium)
-- For building from source: Go 1.21 or later
-
 ## Homebrew Installation (macOS)
 
 The easiest way to install on macOS is using Homebrew:
@@ -51,20 +46,12 @@ Visit the [GitHub Releases page](https://github.com/enegalan/logget/releases) an
    ```bash
    sudo mv logget-linux-amd64 /usr/local/bin/logget
    ```
-4. Verify installation:
-   ```bash
-   logget --version
-   ```
 
 ### Windows Installation
 
 1. Download the Windows executable (`logget-windows-amd64.exe`)
 2. Rename to `logget.exe` (optional)
 3. Add to PATH or place in an accessible directory
-4. Verify installation:
-   ```cmd
-   logget --version
-   ```
 
 ## Building from Source
 

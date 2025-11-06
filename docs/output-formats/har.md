@@ -266,97 +266,7 @@ All timing values are in milliseconds:
 ### Online HAR Viewers
 
 - [HAR Viewer](https://toolbox.googleapps.com/apps/har_analyzer/)
-- [HAR Analyzer](https://www.softwareishard.com/har/viewer/)
-- [HAR Analyzer Online](https://toolbox.googleapps.com/apps/har_analyzer/)
-
-### Using Python
-
-```python
-import json
-
-with open('network.har', 'r') as f:
-    har_data = json.load(f)
-
-for entry in har_data['log']['entries']:
-    request = entry['request']
-    response = entry['response']
-    print(f"{request['method']} {request['url']} - {response['status']}")
-    print(f"  Time: {entry['time']}ms")
-    print(f"  Size: {response['content']['size']} bytes")
-```
-
-## Use Cases
-
-### Performance Analysis
-
-HAR files are excellent for performance analysis:
-
-```bash
-# Capture network data
-logget --har --network --output performance.har https://example.com
-
-# Analyze in browser DevTools or HAR viewer
-```
-
-### Debugging Network Issues
-
-Save HAR files for debugging:
-
-```bash
-# Save HAR with custom headers
-logget --har --network --header "Authorization: Bearer token" --output debug.har https://api.example.com
-```
-
-### Sharing Network Traces
-
-HAR files can be easily shared with team members:
-
-```bash
-# Generate HAR file
-logget --har --network --output trace.har https://example.com
-
-# Share trace.har with your team
-```
-
-### Automated Analysis
-
-Process HAR files programmatically:
-
-```python
-import json
-
-def analyze_har(har_file):
-    with open(har_file, 'r') as f:
-        har = json.load(f)
-    
-    entries = har['log']['entries']
-    
-    # Find slow requests
-    slow_requests = [e for e in entries if e['time'] > 1000]
-    
-    # Find failed requests
-    failed_requests = [e for e in entries if e['response']['status'] >= 400]
-    
-    # Calculate total size
-    total_size = sum(e['response']['content']['size'] for e in entries)
-    
-    return {
-        'total_requests': len(entries),
-        'slow_requests': len(slow_requests),
-        'failed_requests': len(failed_requests),
-        'total_size': total_size
-    }
-
-result = analyze_har('network.har')
-print(result)
-```
-
-## Limitations
-
-- HAR format only includes network data (not console logs)
-- Response bodies may be truncated or omitted for large responses
-- Some timing information may not be available for all requests
-- HAR files can be large for pages with many resources
+- [HAR File Viewer](https://jam.dev/utilities/har-file-viewer)
 
 ## Best Practices
 
@@ -365,4 +275,3 @@ print(result)
 3. **Privacy**: HAR files may contain sensitive data; be careful when sharing
 4. **Analysis Tools**: Use browser DevTools or HAR viewers for visual analysis
 5. **Automation**: Use HAR format for automated analysis workflows
-

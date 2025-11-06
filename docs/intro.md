@@ -17,6 +17,7 @@ Logget enables you to capture and analyze web application behavior without manua
 - **JSON**: Structured data for programmatic processing
 - **CSV**: Spreadsheet-friendly format for analysis
 - **HAR**: HTTP Archive format compatible with browser DevTools
+- **YAML**: Human-readable data serialization format
 
 ### Advanced Capabilities
 - **Real-time Streaming**: Monitor logs and requests as they occur
@@ -46,7 +47,6 @@ logget -f --logs https://example.com
 
 - **Web Development**: Debug JavaScript applications and API interactions
 - **Testing & QA**: Verify network requests and console output in automated tests
-- **Monitoring**: Track application behavior and performance metrics
 - **Security Analysis**: Inspect network traffic and JavaScript execution patterns
 - **Logging**: Create structured log files with timestamps for analysis
 

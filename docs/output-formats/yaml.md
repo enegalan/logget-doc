@@ -1,59 +1,62 @@
-# JSON Output Format
+# YAML Output Format
 
-JSON is one of the output formats for logget. It provides structured data that's easy to parse programmatically.
+YAML provides structured data that's human-readable and easy to parse programmatically.
 
 ## Usage
 
 ```bash
-# Explicit JSON output
-logget --logs --network --json https://example.com
+# Explicit YAML output
+logget --logs --network --yaml https://example.com
 ```
 
 ## Output Schemas
 
-When using `--json`, logget outputs structured JSON data. The format depends on whether you're in follow mode (streaming) or batch mode.
+When using `--yaml`, logget outputs structured YAML data. The format depends on whether you're in follow mode (streaming) or batch mode.
 
 ### Batch Mode (Full Output)
 
-In batch mode, the complete JSON output contains a single `OutputData` object:
+In batch mode, the complete YAML output contains a single `OutputData` object:
 
-```json
-{
-  "url": "https://example.com",
-  "logs": [
-    {
-      "level": "INFO",
-      "message": "Console log message",
-      "time": "2024-10-31T23:00:00Z",
-      "source": "console"
-    }
-  ],
-  "network": [
-    {
-      "url": "https://example.com/api/data",
-      "method": "GET",
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json",
-        "Content-Length": "1234"
-      },
-      "timestamp": "2024-10-31T23:00:00Z",
-      "type": "application/json",
-      "size": 1234,
-      "resourceType": "XHR"
-    }
-  ],
-  "duration": "3.456789s"
-}
+```yaml
+url: https://example.com
+logs:
+  - level: INFO
+    message: Console log message
+    time: "2024-10-31T23:00:00Z"
+    source: console
+network:
+  - url: https://example.com/api/data
+    method: GET
+    status: 200
+    headers:
+      Content-Type: application/json
+      Content-Length: "1234"
+    timestamp: "2024-10-31T23:00:00Z"
+    type: application/json
+    size: 1234
+    resourceType: XHR
+duration: 3.456789s
 ```
 
 ### Follow Mode (Streaming)
 
-In follow mode (`-f`), each log entry and network request is output as a separate JSON object (one per line):
+In follow mode (`-f`), each log entry and network request is output as a separate YAML document (separated by `---`):
 
-```json
-{"level":"INFO","message":"Log message","time":"2024-10-31T23:00:00Z","source":"console"}
-{"url":"https://example.com","method":"GET","status":200,"headers":{"Content-Type":"text/html"},"timestamp":"2024-10-31T23:00:01Z","type":"text/html","size":184,"resourceType":"Document"}
+```yaml
+level: INFO
+message: Log message
+time: "2024-10-31T23:00:00Z"
+source: console
+---
+url: https://example.com
+method: GET
+status: 200
+headers:
+  Content-Type: text/html
+timestamp: "2024-10-31T23:00:01Z"
+type: text/html
+size: 184
+resourceType: Document
 ```
 
 ## Field Descriptions
@@ -133,36 +136,43 @@ Log levels correspond to console methods:
 
 ## Output Format
 
-### Single Line Format (Follow Mode)
+### Multi-Document Format (Follow Mode)
 
-In follow mode, each JSON object is written on a single line (JSONL/NDJSON format):
+In follow mode, each log entry and network request is output as a separate YAML document separated by `---`:
 
-```json
-{"level":"INFO","message":"App started","time":"2024-10-31T23:00:00Z","source":"console"}
-{"url":"https://example.com/","method":"GET","status":200,"resourceType":"Document"}
+```yaml
+level: INFO
+message: App started
+time: "2024-10-31T23:00:00Z"
+source: console
+---
+url: https://example.com/
+method: GET
+status: 200
+resourceType: Document
 ```
 
 This format is:
-- Easy to stream and process line by line
-- Efficient for large outputs
-- Compatible with tools like `jq`
+- Easy to stream and process document by document
+- Human-readable
+- Compatible with YAML parsers that support multi-document streams
 
 ## Saving to File
 
 ```bash
 # Save to file
-logget --json --logs --network --output results.json https://example.com
+logget --yaml --logs --network --output results.yaml https://example.com
 
 # Append to file
-logget --json --logs --network --append --output results.json https://example.com
+logget --yaml --logs --network --append --output results.yaml https://example.com
 ```
 
 ## Follow Mode
 
-In follow mode (`-f`), JSON objects are streamed one per line as they occur:
+In follow mode (`-f`), YAML documents are streamed separated by `---` as they occur:
 
 ```bash
-logget -f --json --logs --network https://example.com
+logget -f --yaml --logs --network https://example.com
 ```
 
 This allows real-time processing of logs and network requests.
@@ -172,37 +182,76 @@ This allows real-time processing of logs and network requests.
 ### Basic Console Logs
 
 ```bash
-logget --json --logs https://example.com
+logget --yaml --logs https://example.com
 ```
 
 Output (follow mode):
-```json
-{"level":"INFO","message":"Application started","time":"2024-10-31T23:00:00Z","source":"console"}
-{"level":"WARN","message":"Deprecated API","time":"2024-10-31T23:00:01Z","source":"console"}
+```yaml
+level: INFO
+message: Application started
+time: "2024-10-31T23:00:00Z"
+source: console
+---
+level: WARN
+message: Deprecated API
+time: "2024-10-31T23:00:01Z"
+source: console
 ```
 
 ### Network Requests
 
 ```bash
-logget --json --network https://example.com
+logget --yaml --network https://example.com
 ```
 
 Output (follow mode):
-```json
-{"url":"https://example.com/","method":"GET","status":200,"headers":{"Content-Type":"text/html"},"timestamp":"2024-10-31T23:00:00Z","type":"text/html","size":1256,"resourceType":"Document"}
-{"url":"https://example.com/api/data","method":"GET","status":200,"headers":{"Content-Type":"application/json"},"timestamp":"2024-10-31T23:00:01Z","type":"application/json","size":456,"resourceType":"XHR"}
+```yaml
+url: https://example.com/
+method: GET
+status: 200
+headers:
+  Content-Type: text/html
+timestamp: "2024-10-31T23:00:00Z"
+type: text/html
+size: 1256
+resourceType: Document
+---
+url: https://example.com/api/data
+method: GET
+status: 200
+headers:
+  Content-Type: application/json
+timestamp: "2024-10-31T23:00:01Z"
+type: application/json
+size: 456
+resourceType: XHR
 ```
 
 ### Combined Output
 
 ```bash
-logget --json --logs --network https://example.com
+logget --yaml --logs --network https://example.com
 ```
 
 Output (follow mode, mixed console logs and network requests):
-```json
-{"level":"INFO","message":"App started","time":"2024-10-31T23:00:00Z","source":"console"}
-{"url":"https://example.com/","method":"GET","status":200,"resourceType":"Document"}
-{"level":"ERROR","message":"API error","time":"2024-10-31T23:00:01Z","source":"console"}
-{"url":"https://example.com/api/data","method":"GET","status":500,"resourceType":"XHR"}
+```yaml
+level: INFO
+message: App started
+time: "2024-10-31T23:00:00Z"
+source: console
+---
+url: https://example.com/
+method: GET
+status: 200
+resourceType: Document
+---
+level: ERROR
+message: API error
+time: "2024-10-31T23:00:01Z"
+source: console
+---
+url: https://example.com/api/data
+method: GET
+status: 500
+resourceType: XHR
 ```
