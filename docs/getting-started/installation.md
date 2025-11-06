@@ -7,6 +7,29 @@ Logget is a cross-platform command-line tool available for Windows, Linux, and m
 - No browser installation required (uses embedded Chromium)
 - For building from source: Go 1.21 or later
 
+## Homebrew Installation (macOS)
+
+The easiest way to install on macOS is using Homebrew:
+
+```bash
+brew tap enegalan/logget
+brew install logget
+```
+
+### Updating
+
+To update to the latest version:
+
+```bash
+brew upgrade logget
+```
+
+### Uninstalling
+
+```bash
+brew uninstall logget
+```
+
 ## Pre-built Binaries
 
 ### Download from GitHub Releases
