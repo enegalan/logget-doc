@@ -22,6 +22,10 @@ logget [flags] <url>
 - `--har`: Output in HAR (HTTP Archive) format
 - `--yaml`: Output in YAML format
 
+:::warning
+Only one output format can be specified at a time. You cannot combine multiple format options (e.g., `--json --csv` or `--yaml --har`).
+:::
+
 ### Output Destination
 
 - `--output`, `-o` `<file>`: Write to file instead of stdout

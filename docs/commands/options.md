@@ -38,6 +38,10 @@ logget --network https://example.com
 
 ## Output Format Options
 
+:::warning
+Only one output format can be specified at a time. You cannot combine multiple format options (e.g., `--json --csv` or `--yaml --har`).
+:::
+
 ### `--json`, `-J`
 
 Output data in [JSON](https://enegalan.github.io/logget-doc/docs/output-formats/json) format.
