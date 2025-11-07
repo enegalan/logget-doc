@@ -228,7 +228,7 @@ logget -k --logs https://localhost:8080
 
 ## Timing Options
 
-### `--timeout <int>`, `-T <int>`
+### `--timeout <milliseconds>`, `-T <milliseconds>`
 
 Set timeout for page load in milliseconds. Default is 60 seconds.
 
@@ -239,7 +239,7 @@ logget --timeout 30000 https://example.com
 
 **Note:** The timeout applies to the initial page load. In follow mode, monitoring continues indefinitely.
 
-### `--wait <int>`, `-W <int>`
+### `--wait <milliseconds>`, `-W <milliseconds>`
 
 Wait time in milliseconds after page load. Default is 3000ms.
 
