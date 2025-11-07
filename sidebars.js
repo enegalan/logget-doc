@@ -46,7 +46,6 @@ const sidebars = {
       label: 'Use Cases',
       items: [
         'use-cases/examples',
-        'use-cases/comparison',
       ],
     },
   ],
