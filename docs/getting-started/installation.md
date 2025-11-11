@@ -11,23 +11,76 @@ brew tap enegalan/logget
 brew install logget
 ```
 
-### Updating
+## Linux and MacOS
 
-To update to the latest version:
+### Prerequisites
+
+The installation script requires:
+- `curl` or `wget` (for downloading)
+- `tar` (for extracting archives)
+- `sudo` privileges (for installing to `/usr/local/bin`)
+
+### Installation
+
+1. Download the installation script:
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/enegalan/logget/main/scripts/install.sh -o install.sh
+   ```
+
+   Or using wget:
+   ```bash
+   wget https://raw.githubusercontent.com/enegalan/logget/main/scripts/install.sh -O install.sh
+   ```
+
+2. Make the script executable:
+   ```bash
+   chmod +x install.sh
+   ```
+
+3. Run the installation script:
+   ```bash
+   ./install.sh
+   ```
+
+   This will install the latest version of logget.
+
+### Installing a Specific Version
+
+To install a specific version, pass the version number as an argument:
 
 ```bash
-brew upgrade logget
+./install.sh 2.2.5
 ```
+
+The version should be in the format `X.Y.Z` (e.g., `2.2.5`).
+
+### Updating
+
+To update to the latest version, simply run the installation script again:
+
+```bash
+./install.sh
+```
+
+The script will detect if logget is already installed and prompt you to overwrite it.
 
 ### Uninstalling
 
+To uninstall logget, use the `--uninstall` or `-u` flag:
+
 ```bash
-brew uninstall logget
+./install.sh --uninstall
 ```
 
-## Pre-built Binaries
+Or:
 
-### Download from GitHub Releases
+```bash
+./install.sh -u
+```
+
+This will remove the binary from `/usr/local/bin`.
+
+## Pre-built Binaries
 
 Visit the [GitHub Releases page](https://github.com/enegalan/logget/releases) and download the appropriate binary for your platform:
 
