@@ -160,12 +160,14 @@ logget -f --logs --filter "ERROR|WARN" https://example.com
 
 ```bash
 logget --network --status "^2..$" https://example.com
+logget --network --status "^(200|204)$" https://example.com
 ```
 
 ### Filter by Domain
 
 ```bash
 logget --network --domain "^api\\.example\\.com$" https://example.com
+logget --network --domain "(.*\\.)?example\\.com$" https://example.com
 ```
 
 ### Filter by MIME Type
@@ -202,6 +204,11 @@ Wait time in milliseconds after page load:
 
 ```bash
 logget --logs --wait 5000 https://example.com
+```
+
+## Custom Fingerprints Rotation Interval
+```bash
+logget --fingerprint-interval 3000 https://example.com
 ```
 
 ## Development Options

@@ -18,6 +18,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Getting Started',
+      collapsed: false,
       items: [
         'getting-started/installation',
         'getting-started/quick-start',
@@ -39,13 +40,6 @@ const sidebars = {
         'output-formats/csv',
         'output-formats/har',
         'output-formats/yaml',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Use Cases',
-      items: [
-        'use-cases/examples',
       ],
     },
   ],
