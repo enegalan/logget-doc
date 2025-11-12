@@ -258,4 +258,3 @@ This command:
 
 - Explore the [Command Reference](../commands/overview) for all available options
 - Learn about [Output Formats](../output-formats/json) in detail
-- Check out [Use Cases](../use-cases/examples) for more examples

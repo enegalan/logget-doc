@@ -530,4 +530,3 @@ logget --yaml --logs --network --output results.yaml https://example.com
 ## Next Steps
 
 - Learn about [Output Formats](../output-formats/json)
-- See [Examples](../use-cases/examples) for more use cases

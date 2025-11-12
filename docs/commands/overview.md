@@ -200,4 +200,3 @@ logget --no-rotate-fingerprints --network https://example.com
 
 - See [Detailed Options](options) for complete option reference
 - Learn about [Output Formats](../output-formats/json)
-- Check out [Use Cases](../use-cases/examples)
