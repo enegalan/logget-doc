@@ -159,37 +159,6 @@ logget --version
 
 You should see the version number printed.
 
-## Troubleshooting
-
-### Command Not Found
-
-If you get a "command not found" error:
-
-1. **Check if the binary is in your PATH**:
-   ```bash
-   which logget  # Linux/macOS
-   where logget  # Windows
-   ```
-
-2. **Add to PATH**: Ensure the directory containing `logget` is in your system's PATH environment variable.
-
-3. **Use full path**: You can always run Logget using its full path:
-   ```bash
-   /path/to/logget --version
-   ```
-
-### Permission Denied (Linux/macOS)
-
-If you get a permission denied error:
-
-```bash
-chmod +x logget
-```
-
-### Windows Security Warning
-
-On Windows, you may see a security warning when running unsigned binaries. Click "More info" and then "Run anyway" if you trust the source.
-
 ## Next Steps
 
 Once installed, proceed to the [Quick Start Guide](quick-start) to learn how to use Logget.
