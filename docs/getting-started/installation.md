@@ -20,6 +20,135 @@ The installation script requires:
 - `tar` (for extracting archives)
 - `sudo` privileges (for installing to `/usr/local/bin`)
 
+### System Dependencies for Chromium
+
+Logget uses an embedded Chromium browser (automatically downloaded via `rod`) to capture logs and network data. Chromium requires certain system libraries to run. If you encounter errors like `cannot open shared object file` or `No such file or directory` when running logget, you may need to install these dependencies.
+
+#### Ubuntu/Debian
+
+Install the required libraries:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y \
+  ca-certificates \
+  fonts-liberation \
+  libappindicator3-1 \
+  libasound2 \
+  libatk-bridge2.0-0 \
+  libatk1.0-0 \
+  libatspi2.0-0 \
+  libcups2 \
+  libdbus-1-3 \
+  libdrm2 \
+  libgbm1 \
+  libgdk-pixbuf2.0-0 \
+  libglib2.0-0 \
+  libgtk-3-0 \
+  libnspr4 \
+  libnss3 \
+  libx11-6 \
+  libx11-xcb1 \
+  libxcb1 \
+  libxcomposite1 \
+  libxdamage1 \
+  libxext6 \
+  libxfixes3 \
+  libxkbcommon0 \
+  libxrandr2 \
+  xdg-utils
+```
+
+#### CentOS/RHEL/Fedora
+
+For CentOS/RHEL 7+ and Fedora:
+
+```bash
+sudo yum install -y \
+  alsa-lib \
+  atk \
+  cups-libs \
+  gtk3 \
+  libdrm \
+  libX11 \
+  libXcomposite \
+  libXdamage \
+  libXext \
+  libXfixes \
+  libXrandr \
+  libxkbcommon \
+  libxshmfence \
+  mesa-libgbm \
+  nss \
+  xorg-x11-fonts-100dpi \
+  xorg-x11-fonts-75dpi \
+  xorg-x11-utils
+```
+
+For Fedora 22+ (using dnf):
+
+```bash
+sudo dnf install -y \
+  alsa-lib \
+  atk \
+  cups-libs \
+  gtk3 \
+  libdrm \
+  libX11 \
+  libXcomposite \
+  libXdamage \
+  libXext \
+  libXfixes \
+  libXrandr \
+  libxkbcommon \
+  libxshmfence \
+  mesa-libgbm \
+  nss \
+  xorg-x11-fonts-100dpi \
+  xorg-x11-fonts-75dpi \
+  xorg-x11-utils
+```
+
+#### Alpine Linux
+
+Alpine Linux uses musl libc, which requires additional packages:
+
+```bash
+apk add --no-cache \
+  chromium \
+  nss \
+  freetype \
+  freetype-dev \
+  harfbuzz \
+  ca-certificates \
+  ttf-freefont
+```
+
+Alternatively, if you prefer to use the Chromium downloaded by rod, install these dependencies:
+
+```bash
+apk add --no-cache \
+  bash \
+  nss \
+  freetype \
+  harfbuzz \
+  ca-certificates \
+  ttf-freefont \
+  ttf-dejavu
+```
+
+#### macOS
+
+macOS typically has most dependencies pre-installed. If you encounter issues, ensure you have:
+
+- Xcode Command Line Tools (install with: `xcode-select --install`)
+
+#### Windows
+
+Windows systems usually have all required dependencies pre-installed. No additional installation is typically needed.
+
+For more information, see the [go-rod compatibility documentation](https://go-rod.github.io/#/compatibility?id=os).
+
 ### Installation
 
 1. Download the installation script:
