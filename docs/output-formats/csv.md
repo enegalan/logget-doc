@@ -106,7 +106,9 @@ logget --csv --network --output network_requests.csv https://example.com
 logget --csv --logs --network --output all_data.csv https://example.com
 ```
 
-**Note:** When capturing both console logs and network requests, they will be interleaved in the CSV output. You may want to filter them in your analysis tool.
+:::info
+When capturing both console logs and network requests, they will be interleaved in the CSV output. You may want to filter them in your analysis tool.
+:::
 
 ### Append to CSV File
 

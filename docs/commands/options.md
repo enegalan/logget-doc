@@ -69,7 +69,9 @@ Output network data in [HAR](https://enegalan.github.io/logget-doc/docs/output-f
 logget --har --network https://example.com
 ```
 
-**Note:** HAR format only includes network data. Use `--network` with `--har`.
+:::info
+HAR format only includes network data. Use `--network` with `--har`.
+:::
 
 ### `--yaml`
 
@@ -124,7 +126,9 @@ Follow mode - stream output in real-time as logs and requests occur.
 logget -f --logs https://example.com
 ```
 
-**Note:** In follow mode, output is streamed line by line. For CSV format, headers are written once at the start.
+:::info
+In follow mode, output is streamed line by line. For CSV format, headers are written once at the start.
+:::
 
 ### `--quiet`, `-q`
 
@@ -237,7 +241,9 @@ Set timeout for page load in milliseconds. Default is 60 seconds.
 logget --timeout 30000 https://example.com
 ```
 
-**Note:** The timeout applies to the initial page load. In follow mode, monitoring continues indefinitely.
+:::info
+The timeout applies to the initial page load. In follow mode, monitoring continues indefinitely.
+:::
 
 ### `--wait <milliseconds>`, `-W <milliseconds>`
 
@@ -448,6 +454,37 @@ Interval in milliseconds for fingerprint rotation (default: 5000).
 ```bash
 logget --fingerprint-interval 2000 --network https://example.com
 ```
+
+### `--execute`, `-e`
+
+Execute JavaScript code in the page context. Can be used for debugging, testing, or interacting with the page. Accepts either inline JavaScript code or a file path containing JavaScript code.
+
+**Usage:**
+```bash
+logget --execute "document.title" https://example.com
+```
+
+**Examples:**
+```bash
+# Execute inline JavaScript code
+logget -e "console.log('Hello from logget')" --logs https://example.com
+
+# Execute multiple statements
+logget -e "const title = document.title; console.log(title); title" --logs https://example.com
+
+# Execute from file
+logget -e script.js https://example.com
+
+```
+
+:::info
+- The JavaScript code is executed after the page loads
+- Single expressions are automatically wrapped to return their value
+- Multiple statements (containing `;` or newlines) are executed as a block
+- Results are displayed in the output (or logged if using `--logs`)
+- If the code is a file path, the file content is read and executed
+- Errors in JavaScript execution are reported in the output
+:::
 
 ### `--no-color`
 

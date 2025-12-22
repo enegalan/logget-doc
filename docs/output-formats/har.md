@@ -12,7 +12,9 @@ logget --har --network https://example.com
 logget --har --network --output network.har https://example.com
 ```
 
-**Note:** HAR format only includes network data. Use `--network` with `--har`.
+:::info
+HAR format only includes network data. Use `--network` with `--har`.
+:::
 
 ## HAR Structure
 
@@ -181,7 +183,9 @@ All timing values are in milliseconds:
 - **`wait`** (float): Wait time (server processing) - TTFB
 - **`receive`** (float): Time to receive response
 
-**Note:** `-1` indicates that the timing information is not available.
+:::info
+`-1` indicates that the timing information is not available.
+:::
 
 ## Example HAR File
 

@@ -69,6 +69,7 @@ Only one output format can be specified at a time. You cannot combine multiple f
 
 ### Advanced Options
 
+- `--execute`, `-e`: Execute JavaScript code in the page context (supports inline code or file path)
 - `--refresh`: Refresh interval in milliseconds for streaming (default: 100)
 - `--no-rotate-fingerprints`: Disable fingerprint rotation
 - `--fingerprint-interval`: Interval in milliseconds for fingerprint rotation (default: 5000)
@@ -181,6 +182,20 @@ logget -f --logs --refresh 500 https://example.com
 
 # Stream with filtering
 logget -f --logs --filter "ERROR|WARN" https://example.com
+```
+
+### JavaScript Execution
+
+```bash
+# Execute inline JavaScript code
+logget -e "document.title" https://example.com
+
+# Execute multiple statements
+logget -e "const title = document.title; console.log(title); title" --logs https://example.com
+
+# Execute from file
+logget -e script.js https://example.com
+
 ```
 
 ### Fingerprint Rotation

@@ -211,6 +211,20 @@ logget --logs --wait 5000 https://example.com
 logget --fingerprint-interval 3000 https://example.com
 ```
 
+## JavaScript Execution
+
+Execute JavaScript code in the page context for debugging, testing, or interacting with the page:
+
+### Execute Inline Code
+```bash
+logget -e "document.title" https://example.com
+```
+
+### Execute from File
+```bash
+logget -e script.js https://example.com
+```
+
 ## Development Options
 
 ### Skip SSL Verification
@@ -253,6 +267,21 @@ This command:
 - Includes authentication headers and cookies
 - Waits up to 60 seconds for page load
 - Waits 5 seconds after page load
+
+### With JavaScript Execution
+```bash
+logget \
+  --logs \
+  --network \
+  --json \
+  --output results.json \
+  --header "Authorization: Bearer token" \
+  --cookie "session_id=abc123" \
+  --execute "document.title" \
+  --timeout 60 \
+  --wait 5000 \
+  https://example.com
+```
 
 ## Next Steps
 
