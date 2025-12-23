@@ -42,6 +42,13 @@ const sidebars = {
         'output-formats/yaml',
       ],
     },
+    {
+      type: 'category',
+      label: 'Architecture',
+      items: [
+        'architecture/workflow',
+      ],
+    },
   ],
 };
 

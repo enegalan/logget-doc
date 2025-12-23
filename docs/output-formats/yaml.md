@@ -112,15 +112,6 @@ resourceType: Document
 - `total` (float, optional): Sum of all timing phases (Queued + DNS + Connect + SSL + Send + Wait + Receive + ContentDownload) in milliseconds
 - `totalFormatted` (string, optional): Formatted total time (e.g., `"863.12ms"` or `"0.86s"`)
 
-## Log Levels
-
-Log levels correspond to console methods:
-- `console.log()` → `"LOG"`
-- `console.info()` → `"INFO"`
-- `console.warn()` → `"WARN"`
-- `console.error()` → `"ERROR"`
-- `console.debug()` → `"DEBUG"`
-
 ## Resource Types
 
 - `"Document"`: HTML documents

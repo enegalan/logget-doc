@@ -5,19 +5,15 @@ CSV (Comma-Separated Values) format provides tabular data that's easy to import 
 ## Usage
 
 ```bash
+# CSV output with logs and network
 logget --csv --logs --network https://example.com
 ```
 
-## Console Logs CSV
+## Output Schemas
 
-### Columns
+When using `--csv`, logget outputs tabular CSV data. The format depends on whether you're capturing console logs, network requests, or both.
 
-1. **`timestamp`** (string): Timestamp in RFC3339 format (ISO 8601)
-2. **`level`** (string): Log level in uppercase (`DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `LOG`, `TRACE`)
-3. **`source`** (string): Source of the log (`browser` or `console`)
-4. **`message`** (string): The log message content (may contain commas, properly escaped)
-
-### Example
+### Console Logs CSV
 
 ```csv
 timestamp,level,source,message
@@ -26,9 +22,37 @@ timestamp,level,source,message
 2024-10-31T23:00:02Z,WARN,console,"Deprecated API used"
 ```
 
-## Network Requests CSV
+### Network Requests CSV
 
-### Columns
+```csv
+timestamp,method,url,status,resourceType,mimeType,size,duration,ttfb,connectTime,dnsTime,sslTime,sendTime,waitTime,receiveTime
+2024-10-31T23:00:00Z,GET,https://example.com/,200,Document,text/html,184,123.45,50.23,10.12,5.34,20.56,2.10,30.45,15.67
+2024-10-31T23:00:01Z,GET,https://example.com/api/data,200,XHR,application/json,1234,234.56,100.12,15.23,8.45,25.67,3.20,50.34,20.45
+```
+
+### Combined Output
+
+```csv
+timestamp,level,source,message
+2024-10-31T23:00:00Z,INFO,console,"App started"
+timestamp,method,url,status,resourceType,mimeType,size,duration,ttfb,connectTime,dnsTime,sslTime,sendTime,waitTime,receiveTime
+2024-10-31T23:00:01Z,GET,https://example.com/,200,Document,text/html,184,123.45,50.23,10.12,5.34,20.56,2.10,30.45,15.67
+```
+
+:::info
+When capturing both console logs and network requests, they will be interleaved in the CSV output. You may want to filter them in your analysis tool.
+:::
+
+## Field Descriptions
+
+### Console Logs Columns
+
+1. **`timestamp`** (string): Timestamp in RFC3339 format (ISO 8601)
+2. **`level`** (string): Log level in uppercase (`DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `LOG`, `TRACE`)
+3. **`source`** (string): Source of the log (`browser` or `console`)
+4. **`message`** (string): The log message content (may contain commas, properly escaped)
+
+### Network Requests Columns
 
 1. **`timestamp`** (string): Timestamp in RFC3339 format (ISO 8601)
 2. **`method`** (string): HTTP method (`GET`, `POST`, `PUT`, `DELETE`, etc.)
@@ -46,21 +70,26 @@ timestamp,level,source,message
 14. **`waitTime`** (string): Wait time (server processing) in milliseconds (e.g., `"30.45"`)
 15. **`receiveTime`** (string): Time to receive response in milliseconds (e.g., `"15.67"`)
 
-### Example
+## Resource Types
 
-```csv
-timestamp,method,url,status,resourceType,mimeType,size,duration,ttfb,connectTime,dnsTime,sslTime,sendTime,waitTime,receiveTime
-2024-10-31T23:00:00Z,GET,https://example.com/,200,Document,text/html,184,123.45,50.23,10.12,5.34,20.56,2.10,30.45,15.67
-2024-10-31T23:00:01Z,GET,https://example.com/api/data,200,XHR,application/json,1234,234.56,100.12,15.23,8.45,25.67,3.20,50.34,20.45
-2024-10-31T23:00:02Z,GET,https://example.com/favicon.ico,404,Other,text/html,230,45.67,20.34,5.12,3.45,0.00,1.50,10.23,5.12
-```
+- `"Document"`: HTML documents
+- `"XHR"`: XMLHttpRequest / Fetch API requests
+- `"Image"`: Images (PNG, JPEG, GIF, etc.)
+- `"Script"`: JavaScript files
+- `"Stylesheet"`: CSS files
+- `"Font"`: Web fonts
+- `"Media"`: Audio/video files
+- `"Manifest"`: Web app manifests
+- `"WebSocket"`: WebSocket connections
+- `"Other"`: Other resource types
 
-## CSV Format Notes
+## Output Format
 
 ### Headers
 
 - Headers are always included in the first line
 - Headers are written once at the start, even in follow mode
+- When capturing both logs and network, headers are written separately for each type
 
 ### Escaping
 
@@ -86,48 +115,74 @@ Values containing commas, quotes, or newlines are properly escaped according to 
 - This prevents issues with leading zeros and ensures consistency
 - Convert to numbers in your analysis tool if needed
 
-## Usage Examples
-
-### Save Console Logs to CSV
+## Saving to File
 
 ```bash
+# Save console logs to CSV
 logget --csv --logs --output console_logs.csv https://example.com
-```
 
-### Save Network Requests to CSV
-
-```bash
+# Save network requests to CSV
 logget --csv --network --output network_requests.csv https://example.com
-```
 
-### Save Both to CSV
-
-```bash
+# Save both to CSV
 logget --csv --logs --network --output all_data.csv https://example.com
-```
 
-:::info
-When capturing both console logs and network requests, they will be interleaved in the CSV output. You may want to filter them in your analysis tool.
-:::
-
-### Append to CSV File
-
-```bash
+# Append to file
 logget --csv --append --output results.csv https://example.com
 ```
 
-### Follow Mode
+## Follow Mode
+
+In follow mode (`-f`), CSV rows are streamed one at a time with the header written once at the start:
 
 ```bash
-logget --csv --follow --logs --network https://example.com
+logget -f --csv --logs --network https://example.com
 ```
 
-In follow mode, CSV rows are streamed one at a time with the header written once at the start.
+This allows real-time processing of logs and network requests.
 
-## Best Practices
+## Examples
 
-1. **Separate Outputs**: Consider running separate commands for console logs and network requests if you need them in separate files
-2. **Use Headers**: Always include headers (default behavior) for easier analysis
-3. **Handle Escaping**: Be aware that URLs and messages may contain commas and will be properly escaped
-4. **Check Empty Values**: Some timing fields may be empty for certain request types
-5. **Type Conversion**: Convert string numeric values to numbers in your analysis tool if needed
+### Basic Console Logs
+
+```bash
+logget --csv --logs https://example.com
+```
+
+Output:
+```csv
+timestamp,level,source,message
+2024-10-31T23:00:00Z,INFO,console,"Application started"
+2024-10-31T23:00:01Z,WARN,console,"Deprecated API"
+```
+
+### Network Requests
+
+```bash
+logget --csv --network https://example.com
+```
+
+Output:
+```csv
+timestamp,method,url,status,resourceType,mimeType,size,duration,ttfb,connectTime,dnsTime,sslTime,sendTime,waitTime,receiveTime
+2024-10-31T23:00:00Z,GET,https://example.com/,200,Document,text/html,1256,123.45,50.23,10.12,5.34,20.56,2.10,30.45,15.67
+2024-10-31T23:00:01Z,GET,https://example.com/api/data,200,XHR,application/json,456,234.56,100.12,15.23,8.45,25.67,3.20,50.34,20.45
+```
+
+### Combined Output
+
+```bash
+logget --csv --logs --network https://example.com
+```
+
+Output (mixed console logs and network requests):
+```csv
+timestamp,level,source,message
+2024-10-31T23:00:00Z,INFO,console,"App started"
+timestamp,method,url,status,resourceType,mimeType,size,duration,ttfb,connectTime,dnsTime,sslTime,sendTime,waitTime,receiveTime
+2024-10-31T23:00:01Z,GET,https://example.com/,200,Document,text/html,184,123.45,50.23,10.12,5.34,20.56,2.10,30.45,15.67
+timestamp,level,source,message
+2024-10-31T23:00:02Z,ERROR,console,"API error"
+timestamp,method,url,status,resourceType,mimeType,size,duration,ttfb,connectTime,dnsTime,sslTime,sendTime,waitTime,receiveTime
+2024-10-31T23:00:03Z,GET,https://example.com/api/data,500,XHR,application/json,0,234.56,100.12,15.23,8.45,25.67,3.20,50.34,20.45
+```

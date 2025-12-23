@@ -522,48 +522,6 @@ Show help message with all available options and exit.
 logget --help
 ```
 
-## Option Combinations
-
-### Common Patterns
-
-**Basic monitoring:**
-```bash
-logget --logs --network https://example.com
-```
-
-**Save to file:**
-```bash
-logget --logs --network --output results.json https://example.com
-```
-
-**Authenticated request:**
-```bash
-logget \
-  --header "Authorization: Bearer token123" \
-  --cookie "sessionid=abc123" \
-  https://api.example.com
-```
-
-**Real-time monitoring:**
-```bash
-logget -f --logs --network https://example.com
-```
-
-**CSV export:**
-```bash
-logget --csv --logs --network --output results.csv https://example.com
-```
-
-**HAR export:**
-```bash
-logget --har --network --output network.har https://example.com
-```
-
-**YAML export:**
-```bash
-logget --yaml --logs --network --output results.yaml https://example.com
-```
-
 ## Next Steps
 
 - Learn about [Output Formats](../output-formats/json)

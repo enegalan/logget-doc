@@ -16,9 +16,11 @@ logget --har --network --output network.har https://example.com
 HAR format only includes network data. Use `--network` with `--har`.
 :::
 
-## HAR Structure
+## Output Schemas
 
-HAR files follow the HTTP Archive specification (version 1.2). The structure is:
+When using `--har`, logget outputs HAR format data following the HTTP Archive specification (version 1.2). The structure is always a single HAR file object, regardless of follow mode.
+
+### HAR Structure
 
 ```json
 {
@@ -43,7 +45,7 @@ HAR files follow the HTTP Archive specification (version 1.2). The structure is:
 }
 ```
 
-## HAR Schema
+## Field Descriptions
 
 ### Root Object
 
@@ -187,8 +189,37 @@ All timing values are in milliseconds:
 `-1` indicates that the timing information is not available.
 :::
 
-## Example HAR File
+## Output Format
 
+HAR format always outputs a complete HAR file structure, even in follow mode. The file contains all network entries captured during the session.
+
+## Saving to File
+
+```bash
+# Save to file
+logget --har --network --output network.har https://example.com
+
+# Append to file
+logget --har --network --append --output network.har https://example.com
+```
+
+## Follow Mode
+
+In follow mode (`-f`), HAR format still outputs a complete HAR file structure. The file is written incrementally as network requests are captured:
+
+```bash
+logget -f --har --network https://example.com
+```
+
+## Examples
+
+### Basic Network Capture
+
+```bash
+logget --har --network https://example.com
+```
+
+Output:
 ```json
 {
   "log": {
@@ -258,20 +289,6 @@ All timing values are in milliseconds:
 }
 ```
 
-## Viewing HAR Files
-
-### Browser DevTools
-
-1. Open Chrome/Edge DevTools (F12)
-2. Go to Network tab
-3. Click the "Import HAR file" button (or right-click → Load HAR)
-4. Select your HAR file
-
-### Online HAR Viewers
-
-- [HAR Viewer](https://toolbox.googleapps.com/apps/har_analyzer/)
-- [HAR File Viewer](https://jam.dev/utilities/har-file-viewer)
-
 ## Best Practices
 
 1. **Use with Network Only**: Remember to use `--network` with `--har`
@@ -279,3 +296,17 @@ All timing values are in milliseconds:
 3. **Privacy**: HAR files may contain sensitive data; be careful when sharing
 4. **Analysis Tools**: Use browser DevTools or HAR viewers for visual analysis
 5. **Automation**: Use HAR format for automated analysis workflows
+
+### Viewing HAR Files
+
+#### Browser DevTools
+
+1. Open Chrome/Edge DevTools (F12)
+2. Go to Network tab
+3. Click the "Import HAR file" button (or right-click → Load HAR)
+4. Select your HAR file
+
+#### Online HAR Viewers
+
+- [HAR Viewer](https://toolbox.googleapps.com/apps/har_analyzer/)
+- [HAR File Viewer](https://jam.dev/utilities/har-file-viewer)
